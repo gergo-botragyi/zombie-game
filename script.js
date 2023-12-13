@@ -1,6 +1,5 @@
 let player;
 let running = false;
-const container = canvas.getBoundingClientRect();
 canvas.addEventListener("mousedown", initialize, false);
 
 function initialize(){
@@ -17,9 +16,6 @@ function simulation_step(){
 }
 
 /*
-function stepOut(){
-
-}
 
 function update(){
     if(running){
@@ -42,20 +38,33 @@ function animationStart(){
     }
 }*/
 
-document.addEventListener('keydown', (e)=>{
+//w 87
+//arrowup 38
+
+//a 65
+//arrowleft 37
+
+//s 83
+//arrowdown 40
+
+//d 68
+//arrowright 39
+
+let keymap = {};
+
+onkeydown = onkeyup = function(e){
+    keymap[e.code] = e.type == 'keydown'; 
+    console.log(e.key);   
+};
+/*document.addEventListener('keydown', (e)=>{
+    keymap[e.code] = true;
     
-    switch (e.key) {
-        case 'w':
-            globalID = requestAnimationFrame(()=>{player.moveF()});
-            break;
-        case 's':
-            globalID = requestAnimationFrame(()=>{player.moveB()});
-            break;
-        case 'a':
-            globalID = requestAnimationFrame(()=>{player.moveL()});
-            break;
-        case 'd':
-            globalID = requestAnimationFrame(()=>{player.moveR()});
-            break;
-    } 
 });
+document.addEventListener('keyup', (e)=>{
+    delete this.keymap[e.code];
+});*/
+
+if(keymap[38] || keymap[87]){globalID = requestAnimationFrame(()=>{player.moveF()});
+} if(keymap[40] || keymap[83]){globalID = requestAnimationFrame(()=>{player.moveB()});
+} if(keymap[37] || keymap[65]){globalID = requestAnimationFrame(()=>{player.moveL()});
+} if(keymap[39] || keymap[68]){globalID = requestAnimationFrame(()=>{player.moveR()});}     

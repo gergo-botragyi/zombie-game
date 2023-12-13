@@ -1,3 +1,5 @@
+let container = canvas.getBoundingClientRect();
+
 class Player{
     constructor(hp, x, y, angle){
         this.hp = hp;
@@ -8,25 +10,40 @@ class Player{
     }
 
     moveF(){
-        this.y-=5;
+        if(!this.stepOut("F")){this.y-=5;}
         this.update();     
     }
     moveB(){
-        this.y+=5;
+        if(!this.stepOut("B")){this.y+=5;}
         this.update();
     }
     moveL(){
-        this.x-=5;
+        if(!this.stepOut("L")){this.x-=5;}
         this.update();
     }
     moveR(){
-        this.x+=5;
+        if(!this.stepOut("R")){this.x+=5;}
         this.update();
     }
 
     update(){
         this.svgobject.setAttribute('x', this.x);
         this.svgobject.setAttribute('y', this.y);
+    }
+
+    stepOut(dir){
+        if(dir=="F" && this.y-5 < 0){
+            return true;
+        }
+        if(dir=="B" && this.y+55 > container.height){
+            return true;
+        }
+        if(dir=="L" && this.x-5 < 0){
+            return true;
+        }
+        if(dir=="R" && this.x+55 > container.width){
+            return true;
+        }
     }
     
     svgbe(){
