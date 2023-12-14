@@ -1,18 +1,28 @@
 let player;
+let batteries = new Array(10);
 let running = false;
 canvas.addEventListener("mousedown", initialize, false);
 
 function initialize(){
     if(!running){
-        player = new Player(100, 85,85,0)
+        player = new Player(100, 85,85);
+        for (let item of batteries) {
+            item = new Battery();
+            canvas.appendChild(item.svgobject);
+        }
         canvas.appendChild(player.svgobject);
         running = true;
     }
+    requestAnimationFrame(update);
 }
 
 let globalID;
-function simulation_step(){
-    
+function update(){
+    player.drainBattery();
+    /*batteries.forEach(item => {
+        if(item.x < player.a && item.y < player.b){item.reposition();}
+    });*/
+    globalID = requestAnimationFrame(update)
 }
 
 /*
@@ -38,33 +48,13 @@ function animationStart(){
     }
 }*/
 
-//w 87
-//arrowup 38
-
-//a 65
-//arrowleft 37
-
-//s 83
-//arrowdown 40
-
-//d 68
-//arrowright 39
-
 let keymap = {};
 
 onkeydown = onkeyup = function(e){
-    keymap[e.code] = e.type == 'keydown'; 
-    console.log(e.key);   
-};
-/*document.addEventListener('keydown', (e)=>{
-    keymap[e.code] = true;
-    
-});
-document.addEventListener('keyup', (e)=>{
-    delete this.keymap[e.code];
-});*/
+    keymap[e.key] = e.type == 'keydown';
 
-if(keymap[38] || keymap[87]){globalID = requestAnimationFrame(()=>{player.moveF()});
-} if(keymap[40] || keymap[83]){globalID = requestAnimationFrame(()=>{player.moveB()});
-} if(keymap[37] || keymap[65]){globalID = requestAnimationFrame(()=>{player.moveL()});
-} if(keymap[39] || keymap[68]){globalID = requestAnimationFrame(()=>{player.moveR()});}     
+    if(keymap["w"] || keymap["ArrowUp"]){globalID = requestAnimationFrame(()=>{player.moveF()});} 
+    if(keymap["s"] || keymap["ArrowDown"]){globalID = requestAnimationFrame(()=>{player.moveB()});} 
+    if(keymap["a"] || keymap["ArrowLeft"]){globalID = requestAnimationFrame(()=>{player.moveL()});} 
+    if(keymap["d"] || keymap["ArrowRight"]){globalID = requestAnimationFrame(()=>{player.moveR()});}     
+};

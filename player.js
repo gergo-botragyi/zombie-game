@@ -1,11 +1,12 @@
 let container = canvas.getBoundingClientRect();
 
 class Player{
-    constructor(hp, x, y, angle){
+    constructor(hp, x, y){
         this.hp = hp;
         this.x = x;
         this.y = y;
-        this.angle = angle;
+        this.a = x+50;
+        this.b = y+50;
         this.svgobject = this.svgbe()
     }
 
@@ -45,6 +46,10 @@ class Player{
             return true;
         }
     }
+
+    drainBattery(){
+        this.hp -= 0.01;
+    }
     
     svgbe(){
         let svgo = document.createElementNS("http://www.w3.org/2000/svg", 'rect');
@@ -52,7 +57,7 @@ class Player{
         svgo.setAttribute('y', this.y);
         svgo.setAttribute('width', "50px");
         svgo.setAttribute('height', "50px");
-        svgo.setAttribute('fill', "F4F4F4");
+        svgo.setAttribute('fill', "#45423f");
         return svgo;
     }
 }
