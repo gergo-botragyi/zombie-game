@@ -8,6 +8,8 @@ class Battery{
     reposition(){
         this.x = Math.floor(Math.random()*(container.width-10));
         this.y = Math.floor(Math.random()*(container.height-10));
+        this.svgobject.setAttribute('x', this.x);
+        this.svgobject.setAttribute('y', this.y)
     }
 
     svgbe(){

@@ -4,27 +4,21 @@ class Player{
     constructor(hp, x, y){
         this.hp = hp;
         this.x = x;
-        this.y = y;
-        this.a = x+50;
-        this.b = y+50;
+        this.y = y; 
         this.svgobject = this.svgbe()
     }
 
     moveF(){
-        if(!this.stepOut("F")){this.y-=5;}
-        this.update();     
+        if(!this.stepOut("F")){this.y-=5;}     
     }
     moveB(){
         if(!this.stepOut("B")){this.y+=5;}
-        this.update();
     }
     moveL(){
         if(!this.stepOut("L")){this.x-=5;}
-        this.update();
     }
     moveR(){
         if(!this.stepOut("R")){this.x+=5;}
-        this.update();
     }
 
     update(){
