@@ -6,16 +6,19 @@ canvas.addEventListener("mousedown", initialize, false);
 
 function initialize(){
     if(!running){
-        player = new Player(100, 85,85);
+        player = new Player(100, 300,300);
+        canvas.insertBefore(player.svgobject, darkness);
+        light.appendChild(player.light);
+        light.appendChild(player.rect);
 
         for (let i = 0; i < batteries.length; i++) {
             batteries[i] = new Battery();
-            canvas.appendChild(batteries[i].svgobject);
+            canvas.insertBefore(batteries[i].svgobject, darkness);
         }
 
         for (let i = 0; i < zombies.length; i++) {
             zombies[i] = new Zombie();
-            canvas.appendChild(zombies[i].svgobject);
+            canvas.insertBefore(zombies[i].svgobject, darkness);
         }
         setInterval(()=>{
             for (const zombie of zombies) {
@@ -23,7 +26,6 @@ function initialize(){
             }
         },850)
 
-        canvas.appendChild(player.svgobject);
 
         running = true;
     }
@@ -33,7 +35,6 @@ function initialize(){
 let globalID;
 function update(){
     player.update();
-    player.drainBattery();
     for (const zombie of zombies) {
         zombie.update();
     }    
@@ -71,5 +72,6 @@ onkeydown = onkeyup = function(e){
     if(keymap["w"] || keymap["ArrowUp"]){player.moveF();} 
     if(keymap["s"] || keymap["ArrowDown"]){player.moveB()} 
     if(keymap["a"] || keymap["ArrowLeft"]){player.moveL();} 
-    if(keymap["d"] || keymap["ArrowRight"]){player.moveR();}     
+    if(keymap["d"] || keymap["ArrowRight"]){player.moveR();}
+    if(keymap["e"]){player.lightOnOff();}     
 };

@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
     <script src="zombie.js" defer></script>
     <script src="battery.js" defer></script>
     <script src="player.js" defer></script>
@@ -10,6 +11,13 @@
     <title>Zombie Game</title>
 </head>
 <body>
-    <svg width="100vw" height="100vh" id="canvas"></svg>
+    <svg width="100vw" height="100vh" id="canvas">
+        <defs>
+            <mask id="light">
+                <rect x="0" y="0" width="100vw" height="100vh" fill="white"/>
+            </mask>
+        </defs>
+        <rect x="0" y="0" width="100vw" height="100vh" fill="black" mask="url(#light)" id="darkness"/>
+    </svg>
 </body>
 </html>
