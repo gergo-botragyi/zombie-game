@@ -5,17 +5,12 @@ class Zombie{
         this.svgobject = this.svgbe()
     }
 
-    move(){
-        let rand = Math.floor(Math.random()*21)+10;
-        rand *= Math.round(Math.random()) ? 1 : -1;
-        if(this.x-rand >=0 || this.x+20+rand <=container.width){
-            this.x+= rand;
-        }
-        
-        rand = Math.floor(Math.random()*21)+10;
-        rand *= Math.round(Math.random()) ? 1 : -1;
-        if(this.y-rand >=0 || this.y+20+rand <=container.height){
-            this.y+= rand;
+    move(randX, randY){        
+        if(this.x-randX >=0 || this.x+20+randX <=container.width){
+            this.x+= randX;
+        }            
+        if(this.y-randY >=0 || this.y+20+randY <=container.height){
+            this.y+= randY;
         }
     }
 

@@ -6,7 +6,7 @@ canvas.addEventListener("mousedown", initialize, false);
 
 function initialize(){
     if(!running){
-        player = new Player(100, 300,300);
+        player = new Player(container.width/2-25,container.height/2-25);
         canvas.insertBefore(player.svgobject, darkness);
         light.appendChild(player.light);
         light.appendChild(player.rect);
@@ -22,9 +22,20 @@ function initialize(){
         }
         setInterval(()=>{
             for (const zombie of zombies) {
-                zombie.move();
+                let randX = Math.floor(Math.random()*5);
+                randX *= Math.round(Math.random()) ? 1 : -1;
+    
+                let randY = Math.floor(Math.random()*5);
+                randY *= Math.round(Math.random()) ? 1 : -1;
+    
+                let moved = 0;
+    
+                var timer = setInterval(function(){
+                    if(moved++ == 15){clearInterval(timer)}
+                    zombie.move(randX, randY);                                
+                },200)
             }
-        },850)
+        },3000)
 
 
         running = true;
@@ -37,9 +48,12 @@ function update(){
     player.update();
     for (const zombie of zombies) {
         zombie.update();
+        /*if(Math.abs(zombie.x-player.x)<50 && Math.abs(zombie.y - player.y)<50 && Math.abs(zombie.x-30 - player.x)<50 && Math.abs(zombie.y-30 - player.y)<50){
+            
+        }*/
     }    
     for (const battery of batteries) {
-        if(Math.abs(battery.x-player.x)<50 && Math.abs(battery.y - player.y)<50 && Math.abs(battery.x-40 - player.x)<50 && Math.abs(battery.y-40 - player.y)<50){
+        if(Math.abs(battery.x-player.x)<50 && Math.abs(battery.y - player.y)<50 && Math.abs(player.x-battery.x+40)<50 && Math.abs(player.y-battery.y+40)<50){
             battery.reposition();
         }
     }  

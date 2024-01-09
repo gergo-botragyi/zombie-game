@@ -2,8 +2,7 @@ let container = canvas.getBoundingClientRect();
 let lightSwitch = false;
 
 class Player{
-    constructor(hp, x, y){
-        this.hp = hp;
+    constructor(x, y){
         this.x = x;
         this.y = y;
         this.direction = 0; 
@@ -32,7 +31,6 @@ class Player{
         this.light.setAttribute('transform', `rotate(${this.direction*90} ${this.x+25} ${this.y+25})`);
         this.rect.setAttribute('x', `${this.x-2}`)
         this.rect.setAttribute('y', `${this.y-2}`)
-        if(lightSwitch){this.hp -= 0.15; console.log(this.hp);}
     }
 
     stepOut(dir){
