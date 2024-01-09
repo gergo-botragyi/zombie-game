@@ -11,7 +11,7 @@ let bestMinutes = 61;
 let bestSeconds = 61;
 let bestMils = 100;
 var zombieMove;
-var zombieTimer;
+var zombieMoveRepeater;
 var timer;
 startbtn.addEventListener("click", initialize, false);
 
@@ -39,16 +39,17 @@ function initialize(){
         zombieMove = setInterval(()=>{
             for (const zombie of zombies) {
                 let randX = Math.floor(Math.random()*5);
-                randX *= Math.round(Math.random()) ? 1 : -1;
+                randX *= Math.round(Math.random()) * 2 -1;
     
                 let randY = Math.floor(Math.random()*5);
-                randY *= Math.round(Math.random()) ? 1 : -1;
+                randY *= Math.round(Math.random()) * 2 -1;
     
                 let moved = 0;
     
-                zombieTimer = setInterval(function(){
-                    if(moved++ == 14){clearInterval(zombieTimer)}
-                    zombie.move(randX, randY);                                
+                zombieMoveRepeater = setInterval(function(){
+                    if(moved++ == 13){clearInterval(zombieMoveRepeater); return;}else{
+                        zombie.move(randX, randY);                                
+                    }
                 },200)
             }
         },3000)
@@ -94,7 +95,7 @@ function gameStop(){
 
     clearInterval(timer);
     clearInterval(zombieMove);
-    clearInterval(zombieTimer);
+    clearInterval(zombieMoveRepeater);
 
     if((minutes<bestMinutes || (minutes<=bestMinutes && seconds<bestSeconds) || (minutes<=bestMinutes && seconds<=bestSeconds && mils<bestMils)) && winlose.innerText == "You win!"){
         bestMils = mils;
