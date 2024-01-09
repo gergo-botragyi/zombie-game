@@ -1,3 +1,4 @@
+let globalID;
 let player;
 let batteries;
 let zombies;
@@ -46,7 +47,7 @@ function initialize(){
                 let moved = 0;
     
                 zombieTimer = setInterval(function(){
-                    if(moved++ == 15){clearInterval(zombieTimer)}
+                    if(moved++ == 14){clearInterval(zombieTimer)}
                     zombie.move(randX, randY);                                
                 },200)
             }
@@ -61,20 +62,19 @@ function initialize(){
 
         running = true;
     }
-    requestAnimationFrame(update);
+    globalID = requestAnimationFrame(update);
 }
 
-let globalID;
 function update(){
     container = canvas.getBoundingClientRect();
-    if(batteries.length == 0){gameStop();}    
+    if(batteries.length == 0){winlose.innerText = "You win!"; winlose.style.color="green"; gameStop();}    
     player.update();
     for (const zombie of zombies) {
         if(Math.abs(zombie.x-player.x)<50 && Math.abs(zombie.y - player.y)<50 && Math.abs(zombie.x-30 - player.x)<50 && Math.abs(zombie.y-30 - player.y)<50){
-            for (const battery of [...batteries]) {
-                battery.delete();
-                gameStop();
-            }
+            winlose.innerText = "You lost!";
+            winlose.style.color="red";
+            gameStop();
+            return;
         }
         zombie.update();
     }    
@@ -96,22 +96,28 @@ function gameStop(){
     clearInterval(zombieMove);
     clearInterval(zombieTimer);
 
-    minutes = 0;
-    seconds = 0;
-    mils = 0;
-    
-    if(minutes<bestMinutes || (minutes<=bestMinutes && seconds<bestSeconds) || (minutes<=bestMinutes && seconds<=bestSeconds && mils<bestMils)){
+    if((minutes<bestMinutes || (minutes<=bestMinutes && seconds<bestSeconds) || (minutes<=bestMinutes && seconds<=bestSeconds && mils<bestMils)) && winlose.innerText == "You win!"){
         bestMils = mils;
         bestSeconds = seconds;
         bestMinutes = minutes;
     }
+
     floater.style.display = "flex";
     floater.style.zIndex = "100";
+
     finalTime.innerText = time;
-    bestTime.innerText = `${bestMinutes<=9?"0":""}${bestMinutes}:${bestSeconds<=9?"0":""}${bestSeconds}:${bestMils<=9?"0":""}${bestMils}`;
+    bestTime.innerText = `${winlose.innerText == "You win!" ? `${bestMinutes<=9?"0":""}${bestMinutes}:${bestSeconds<=9?"0":""}${bestSeconds}:${bestMils<=9?"0":""}${bestMils}`:"00:00:00"}`;
+
+    minutes = 0;
+    seconds = 0;
+    mils = 0;
+
 }
 
 function deleteEverything(){
+    for (const battery of [...batteries]) {
+        battery.delete();
+    }
     for (const zombie of [...zombies]) {
         zombie.delete();
     }

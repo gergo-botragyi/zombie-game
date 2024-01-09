@@ -34,6 +34,7 @@ class Player{
     }
 
     delete(){
+        lightSwitch = false;
         this.svgobject.remove();
         this.light.remove();
         this.rect.remove();
