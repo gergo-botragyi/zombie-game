@@ -11,13 +11,28 @@
     <title>Zombie Game</title>
 </head>
 <body>
-    <svg width="100vw" height="100vh" id="canvas">
-        <defs>
-            <mask id="light">
-                <rect x="0" y="0" width="100vw" height="100vh" fill="white"/>
-            </mask>
-        </defs>
-        <rect x="0" y="0" width="100vw" height="100vh" fill="black" mask="url(#light)" id="darkness"/>
-    </svg>
+    <div id="game">
+        <svg width="100vw" height="100vh" id="canvas">
+            <defs>
+                <mask id="light">
+                    <rect x="0" y="0" width="100vw" height="100vh" fill="white"/>
+                </mask>
+            </defs>
+            <rect x="0" y="0" width="100vw" height="100vh" fill="black" mask="url(#light)" id="darkness"/>
+        </svg>
+    </div>
+    <div id="stats">
+        <div id="counter">
+            <img src="battery.png" alt="">
+            <p id="batteryCounter">10</p>
+        </div>
+        <p id="stopwatch">00:00:00</p>
+    </div>
+    <div id="floater">
+        <p>Time: <span id="finalTime">00:00:00</span></p>
+        <p>Best time: <span id="bestTime">00:00:00</span></p>
+
+        <button type="button" id="startbtn">START</button>
+    </div>    
 </body>
 </html>

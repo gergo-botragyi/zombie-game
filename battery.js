@@ -5,11 +5,10 @@ class Battery{
         this.svgobject = this.makeSvg()
     }
 
-    reposition(){
-        this.x = Math.floor(Math.random()*(container.width-10));
-        this.y = Math.floor(Math.random()*(container.height-10));
-        this.svgobject.setAttribute('x', this.x);
-        this.svgobject.setAttribute('y', this.y)
+    delete(){
+        batteries.splice(batteries.indexOf(this), 1);
+        this.svgobject.remove();
+        delete this;
     }
 
     makeSvg(){

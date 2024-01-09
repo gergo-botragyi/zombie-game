@@ -1,8 +1,86 @@
 body{
     margin: 0;
     padding: 0;
+    overflow: hidden;
 }
 
 #canvas{
     background-color:rgb(255, 222, 140);
+    width: 100%;
+    height: 100%;
+}
+
+#content{
+    width: 100%;
+    height: 100%;
+    position: relative;
+    margin: auto;
+    padding: 0px;
+}
+
+#stats{
+    position: absolute;
+    width: 10%;
+    height: 3%;
+    top: 0;
+    left: 45%;
+    z-index: 100;
+    background-color:rgb(255, 222, 140);
+    border-bottom-left-radius:15px;
+    border-bottom-right-radius: 15px;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+}
+
+#stats p{
+    padding: 0;
+    margin: 0;    
+}
+
+img{
+    align-self: center;
+}
+
+#counter{
+    display: flex;
+    flex-direction: row;
+    column-gap: 10%;
+    align-items: center;
+}
+
+@keyframes float {
+    from {top: 100%}
+    to {top: 25%;}
+}
+
+#floater{
+    position: absolute;
+    width: 25%;
+    height: 50%;
+    top: 25%;
+    left: 37.5%;
+    border: 2px solid orange;
+    z-index: 100;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    border-radius: 5%;
+    background-color:rgb(255, 222, 140);
+    color: black;
+    animation-name: float;
+    animation-duration: 1.5s; 
+    box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+    text-align: center;
+}
+
+button{
+    background-color: orange;
+    border-radius: 11%;
+    margin: 0;
+    font-size: large;    
 }

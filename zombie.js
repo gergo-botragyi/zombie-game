@@ -1,17 +1,23 @@
 class Zombie{
     constructor(){
-        this.x = Math.floor(Math.random()*(container.width-10));
-        this.y = Math.floor(Math.random()*(container.height-10));
+        this.x = Math.floor(Math.random()*(container.width-20));
+        this.y = Math.floor(Math.random()*(container.height-20));
         this.svgobject = this.svgbe()
     }
 
     move(randX, randY){        
-        if(this.x-randX >=0 || this.x+20+randX <=container.width){
+        if(!(this.x+randX <0 || this.x+20+randX >container.width)){
             this.x+= randX;
         }            
-        if(this.y-randY >=0 || this.y+20+randY <=container.height){
+        if(!(this.y+randY <0 || this.y+20+randY >container.height)){
             this.y+= randY;
         }
+    }
+
+    delete(){
+        zombies.splice(zombies.indexOf(this), 1);
+        this.svgobject.remove();
+        delete this;
     }
 
     update(){

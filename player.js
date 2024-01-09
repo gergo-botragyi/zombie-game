@@ -33,6 +33,13 @@ class Player{
         this.rect.setAttribute('y', `${this.y-2}`)
     }
 
+    delete(){
+        this.svgobject.remove();
+        this.light.remove();
+        this.rect.remove();
+        delete this;
+    }
+
     stepOut(dir){
         if(dir=="F" && this.y-5 < 0){
             return true;
@@ -80,8 +87,8 @@ class Player{
 
     makeRect(){
         let svgo = document.createElementNS("http://www.w3.org/2000/svg", 'rect');
-        svgo.setAttribute('x', this.x-2);
-        svgo.setAttribute('y', this.y-2);
+        svgo.setAttribute('x', this.x);
+        svgo.setAttribute('y', this.y);
         svgo.setAttribute('width', '54px');
         svgo.setAttribute('height', '54px');
         svgo.setAttribute('fill', 'white');
