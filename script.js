@@ -68,7 +68,7 @@ function initialize(){
 
 function update(){
     container = canvas.getBoundingClientRect();
-    if(batteries.length == 0){winlose.innerText = "You win!"; winlose.style.color="green"; gameStop();}    
+    if(batteries.length == 0){winlose.innerText = "You win!"; winlose.style.color="green"; win();}    
     player.update();
     for (const zombie of zombies) {
         if(Math.abs(zombie.x-player.x)<50 && Math.abs(zombie.y - player.y)<50 && Math.abs(zombie.x-30 - player.x)<50 && Math.abs(zombie.y-30 - player.y)<50){
@@ -88,6 +88,17 @@ function update(){
     globalID = requestAnimationFrame(update)
 }
 
+function win(){
+    if((minutes<bestMinutes || (minutes<=bestMinutes && seconds<bestSeconds) || (minutes<=bestMinutes && seconds<=bestSeconds && mils<bestMils)) && winlose.innerText == "You win!"){
+        bestMils = mils;
+        bestSeconds = seconds;
+        bestMinutes = minutes;
+    }
+    bestTime.innerText = `${bestMinutes<=9?"0":""}${bestMinutes}:${bestSeconds<=9?"0":""}${bestSeconds}:${bestMils<=9?"0":""}${bestMils}`;
+
+    gameStop();
+}
+
 function gameStop(){
     cancelAnimationFrame(globalID);
     running = false;
@@ -96,23 +107,15 @@ function gameStop(){
     clearInterval(timer);
     clearInterval(zombieMove);
     clearInterval(zombieMoveRepeater);
-
-    if((minutes<bestMinutes || (minutes<=bestMinutes && seconds<bestSeconds) || (minutes<=bestMinutes && seconds<=bestSeconds && mils<bestMils)) && winlose.innerText == "You win!"){
-        bestMils = mils;
-        bestSeconds = seconds;
-        bestMinutes = minutes;
-    }
-
+    
     floater.style.display = "flex";
     floater.style.zIndex = "100";
 
     finalTime.innerText = time;
-    bestTime.innerText = `${winlose.innerText == "You win!" ? `${bestMinutes<=9?"0":""}${bestMinutes}:${bestSeconds<=9?"0":""}${bestSeconds}:${bestMils<=9?"0":""}${bestMils}`:"00:00:00"}`;
 
     minutes = 0;
     seconds = 0;
     mils = 0;
-
 }
 
 function deleteEverything(){
