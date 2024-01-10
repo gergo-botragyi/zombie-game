@@ -2,13 +2,14 @@ let container = canvas.getBoundingClientRect();
 let lightSwitch = false;
 
 class Player{
-    constructor(x, y){
+    constructor(x, y){        
         this.x = x;
         this.y = y;
+        this.hp = 1;        
         this.direction = 0; 
         this.svgobject = this.makeSvg()
         this.light = this.makeLight()
-        this.rect = this.makeRect()        
+        this.rect = this.makeRect()
     }
 
     moveF(){
@@ -27,7 +28,8 @@ class Player{
     update(){
         this.svgobject.setAttribute('x', this.x);
         this.svgobject.setAttribute('y', this.y);
-        this.light.setAttribute('points', `${this.x},${this.y} ${this.x-50},${this.y-200} ${this.x+100},${this.y-200} ${this.x+50},${this.y}`)
+        if(lightSwitch && this.hp>0.0015){this.hp -= 0.0015;};      
+        this.light.setAttribute('points', `${this.x},${this.y} ${this.x-Math.floor(50*this.hp)},${this.y-Math.floor(200*this.hp)} ${this.x+Math.floor(100*this.hp)},${this.y-Math.floor(200*this.hp)} ${this.x+50},${this.y}`)
         this.light.setAttribute('transform', `rotate(${this.direction*90} ${this.x+25} ${this.y+25})`);
         this.rect.setAttribute('x', `${this.x-2}`)
         this.rect.setAttribute('y', `${this.y-2}`)
@@ -66,9 +68,8 @@ class Player{
     }
 
     makeLight(){
-        let polygon = document.createElementNS("http://www.w3.org/2000/svg", 'polygon');
-  
-        polygon.setAttribute('points', `${this.x},${this.y} ${this.x-50},${this.y-200} ${this.x+100},${this.y-200} ${this.x+50},${this.y}`)
+        let polygon = document.createElementNS("http://www.w3.org/2000/svg", 'polygon');;
+        polygon.setAttribute('points', `${this.x},${this.y} ${this.x},${this.y} ${this.x},${this.y} ${this.x+50},${this.y}`)
         polygon.setAttribute('fill', 'white');        
 
         return polygon;
