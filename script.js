@@ -89,7 +89,7 @@ function update(){
 }
 
 function win(){
-    if((minutes<bestMinutes || (minutes<=bestMinutes && seconds<bestSeconds) || (minutes<=bestMinutes && seconds<=bestSeconds && mils<bestMils)) && winlose.innerText == "You win!"){
+    if(minutes<bestMinutes || (minutes<=bestMinutes && seconds<bestSeconds) || (minutes<=bestMinutes && seconds<=bestSeconds && mils<bestMils)){
         bestMils = mils;
         bestSeconds = seconds;
         bestMinutes = minutes;
