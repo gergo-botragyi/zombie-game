@@ -4,12 +4,12 @@ let batteries;
 let zombies;
 let running = false;
 let time;
-let minutes;
-let seconds;
-let mils;
-let bestMinutes;
-let bestSeconds;
-let bestMils;
+let minutes = 0;
+let seconds = 0;
+let mils = 0;
+let bestMils = 100;
+let bestSeconds = 61;
+let bestMinutes = 61;
 var zombieMove;
 var zombieMoveRepeater;
 var timer;
@@ -53,13 +53,7 @@ function initialize(){
                 },200)
             }
         },3000)
-        
-        minutes = 0;
-        seconds = 0;
-        mils = 0;
-        bestMils = 100;
-        bestSeconds = 61;
-        bestMinutes = 61;
+                
         timer = setInterval(()=>{
             if(++mils==99){seconds++;mils=0;}
             if(seconds==60){minutes++;seconds=0;}
