@@ -4,12 +4,12 @@ let batteries;
 let zombies;
 let running = false;
 let time;
-let minutes = 0;
-let seconds = 0;
-let mils = 0;
-let bestMinutes = 61;
-let bestSeconds = 61;
-let bestMils = 100;
+let minutes;
+let seconds;
+let mils;
+let bestMinutes;
+let bestSeconds;
+let bestMils;
 var zombieMove;
 var zombieMoveRepeater;
 var timer;
@@ -54,6 +54,12 @@ function initialize(){
             }
         },3000)
         
+        minutes = 0;
+        seconds = 0;
+        mils = 0;
+        bestMils = 100;
+        bestSeconds = 61;
+        bestMinutes = 61;
         timer = setInterval(()=>{
             if(++mils==99){seconds++;mils=0;}
             if(seconds==60){minutes++;seconds=0;}
@@ -68,7 +74,7 @@ function initialize(){
 
 function update(){
     container = canvas.getBoundingClientRect();
-    if(batteries.length == 0){winlose.innerText = "You win!"; winlose.style.color="green"; win();}    
+    if(batteries.length == 0){winlose.innerText = "You win!"; winlose.style.color="green"; win(); return;}    
     player.update();
     for (const zombie of zombies) {
         if(Math.abs(zombie.x-player.x)<50 && Math.abs(zombie.y - player.y)<50 && Math.abs(zombie.x-30 - player.x)<50 && Math.abs(zombie.y-30 - player.y)<50){
@@ -93,9 +99,10 @@ function win(){
         bestMils = mils;
         bestSeconds = seconds;
         bestMinutes = minutes;
+        bestTime.innerText = `${bestMinutes<=9?"0":""}${bestMinutes}:${bestSeconds<=9?"0":""}${bestSeconds}:${bestMils<=9?"0":""}${bestMils}`;
+        console.log("best time set")
     }
-    bestTime.innerText = `${bestMinutes<=9?"0":""}${bestMinutes}:${bestSeconds<=9?"0":""}${bestSeconds}:${bestMils<=9?"0":""}${bestMils}`;
-
+    console.log("win")
     gameStop();
 }
 
