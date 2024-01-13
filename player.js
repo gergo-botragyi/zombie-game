@@ -5,7 +5,9 @@ class Player{
     constructor(x, y){        
         this.x = x;
         this.y = y;
-        this.hp = 1;        
+        this.drainFull = 1;
+        this.drainHalf = 1;
+        this.drained = false;      
         this.direction = 0; 
         this.svgobject = this.makeSvg()
         this.light = this.makeLight()
@@ -28,11 +30,17 @@ class Player{
     update(){
         this.svgobject.setAttribute('x', this.x);
         this.svgobject.setAttribute('y', this.y);
-        if(lightSwitch && this.hp>0.0015){this.hp -= 0.0015;};      
-        this.light.setAttribute('points', `${this.x},${this.y} ${this.x-Math.floor(50*this.hp)},${this.y-Math.floor(200*this.hp)} ${this.x+Math.floor(100*this.hp)},${this.y-Math.floor(200*this.hp)} ${this.x+50},${this.y}`)
+        if(lightSwitch && this.drainFull-0.0005>0){this.drainFull -= 0.0005; this.drainHalf -= 0.00025;console.log("light")}     
+        this.light.setAttribute('points', `${this.x},${this.y} ${this.x-Math.floor(50*this.drainFull)},${this.y-Math.floor(200*this.drainFull)} ${this.x+Math.floor(100*this.drainHalf)},${this.y-Math.floor(200*this.drainFull)} ${this.x+50},${this.y}`)
         this.light.setAttribute('transform', `rotate(${this.direction*90} ${this.x+25} ${this.y+25})`);
         this.rect.setAttribute('x', `${this.x-2}`)
         this.rect.setAttribute('y', `${this.y-2}`)
+        if(this.drainFull-0.0005<0 && !this.drained){
+            this.light.setAttribute('fill', 'white')
+            this.rect.setAttribute('fill', 'white')
+            this.drained = true;
+            lightSwitch = false;
+        }
     }
 
     delete(){
@@ -76,7 +84,7 @@ class Player{
     }
 
     lightOnOff(){
-        if(!lightSwitch){
+        if(!lightSwitch && !this.drained){
             this.light.setAttribute('fill', 'grey')
             this.rect.setAttribute('fill', 'grey')
             lightSwitch = true;

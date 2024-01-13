@@ -82,6 +82,9 @@ function update(){
     for (const battery of batteries) {
         if(Math.abs(battery.x-player.x)<50 && Math.abs(battery.y - player.y)<50 && Math.abs(player.x-battery.x+40)<50 && Math.abs(player.y-battery.y+40)<50){
             battery.delete();
+            player.drainFull = 1;
+            player.drainHalf = 1;
+            player.drained = false;
         }
     }
     batteryCounter.innerText = batteries.length;    
@@ -94,9 +97,7 @@ function win(){
         bestSeconds = seconds;
         bestMinutes = minutes;
         bestTime.innerText = `${bestMinutes<=9?"0":""}${bestMinutes}:${bestSeconds<=9?"0":""}${bestSeconds}:${bestMils<=9?"0":""}${bestMils}`;
-        console.log("best time set")
     }
-    console.log("win")
     gameStop();
 }
 
