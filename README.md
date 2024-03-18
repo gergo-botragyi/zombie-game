@@ -2,6 +2,6 @@
 
 **https://gergo-botragyi.github.io/zombie-game/**
 
-**Controls** \br
-**move:** [w] [a] [s] [d] or arrows \br
+**Controls** <br />
+**move:** [w] [a] [s] [d] or arrows <br />
 **toggle light:** [e]
